@@ -1,0 +1,199 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled0.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyOUEOodyGbQ04W4yf0qJJlG",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/DeepmalaMehraGH/Challenge/blob/master/sentiment%20analysis\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "-1Jrin7fCTo_",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "# Get the sentiment of a text from website"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "bNvbMEMtCm5e",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "#pip install newspaper3k\n"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Nf7i3E8ZE6En",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "#import the libraries\n",
+        "from textblob import TextBlob\n",
+        "import nltk\n",
+        "from newspaper import Article"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "swMhnrpkFVXL",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "url ='https://timesofindia.indiatimes.com'\n",
+        "article = Article(url)"
+      ],
+      "execution_count": 0,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "JaxeWt3AGpOi",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 50
+        },
+        "outputId": "a89c11e4-1f0f-4283-81c5-9953dc7d5ae0"
+      },
+      "source": [
+        "article.download()\n",
+        "article.parse()\n",
+        "nltk.download('punkt')\n",
+        "article.nlp()"
+      ],
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "[nltk_data] Downloading package punkt to /root/nltk_data...\n",
+            "[nltk_data]   Unzipping tokenizers/punkt.zip.\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "KuQD2OZTHLO2",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 87
+        },
+        "outputId": "e272fbf6-0fef-4f9d-c006-e54d5e096e50"
+      },
+      "source": [
+        "text = article.summary\n",
+        "print(text)"
+      ],
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "'Thought of committing suicide thrice': Shami reveals darkest moments of his lifeIndian pace sensation Mohammed Shami on Saturday opened up about the darkest moments of his life when he had thought of committing suicide thrice.\n",
+            "In an Instagram Live session with teammate Rohit Sharma, Shami said after his injury in the 2015 ICC Cricket World Cup he almost took 18 months to get back on the field.\n",
+            "The long 18 months were very stressful for Shami.\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "LNsuD8viH7Sn",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 34
+        },
+        "outputId": "8215c0b4-7bfe-47eb-a58c-10b038ea3ae6"
+      },
+      "source": [
+        "obj = TextBlob(text)\n",
+        "sentiment = obj.sentiment.polarity\n",
+        "print(sentiment)\n"
+      ],
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "0.0715909090909091\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Yx9bY-1XI2aZ",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 34
+        },
+        "outputId": "83c76b36-e47c-453d-b3a9-66ffce9103d9"
+      },
+      "source": [
+        "if sentiment == 0:\n",
+        "  print(\"sentiment of this article is neutral\")\n",
+        "elif sentiment > 0:\n",
+        "  print(\"sentiment of this article is Positive\")\n",
+        "else:\n",
+        "  print(\"sentiment of this article is Negative\")\n",
+        "\n"
+      ],
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "sentiment of this article is Positive\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    }
+  ]
+}
